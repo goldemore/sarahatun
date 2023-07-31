@@ -5,7 +5,7 @@ import data from "./data";
 const Products = () => {
  
 const product=()=>{
-  window.open('sarahatun/#/product')
+  window.open('#/product')
 }
 
   return (
