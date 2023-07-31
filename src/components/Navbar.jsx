@@ -7,13 +7,15 @@ import { useEffect, useState } from "react";
 const Navbar = () => {
   
   
-  const { hash, key } = useLocation();
+  const location = useLocation();
+  const hashFragment = location.hash.substring(1);
+
   useEffect(() => {
-    if (hash) {
-      const targetElement = document.getElementById(hash.substring(1));
+    if (hashFragment) {
+      const targetElement = document.getElementById(hashFragment);
       targetElement?.scrollIntoView({ behavior: "smooth" });
     }
-  }, [key, hash]);
+  }, [hashFragment]);
 
   
 
