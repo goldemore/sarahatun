@@ -1,5 +1,5 @@
 
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -19,7 +19,7 @@ import MessageOneReading from "./components/adminPanelComponents/MessageOneReadi
 
 export default function App() { 
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -37,6 +37,6 @@ export default function App() {
         <Route path="/messages" element={<Message/>} />
         <Route path="/messagereading" element={<MessageOneReading/>} />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }

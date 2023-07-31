@@ -5,7 +5,7 @@ import logo from "../logoimg/SH logo.png";
 import { useEffect, useState } from "react";
 
 const Navbar = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  
   
   const { hash, key } = useLocation();
   useEffect(() => {
@@ -14,6 +14,10 @@ const Navbar = () => {
       targetElement?.scrollIntoView({ behavior: "smooth" });
     }
   }, [key, hash]);
+
+  
+
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {

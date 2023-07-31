@@ -5,7 +5,7 @@ const ProductCart = () => {
     <div className="p_container">
       <div className="p_box">
         <div className="p_img">
-          <img src="/images/image1.png" alt="" />
+          <img src="https://i0.wp.com/artfulliving.com/wp-content/uploads/2020/11/STATE-CASH.jpeg?resize=1080%2C1440&ssl=1" alt="" />
         </div>
         <div className="p_content">
           <h3>Lorem ipsum doler.</h3>
