@@ -1,0 +1,1 @@
+export const baseUrlAccount='https://derzi.pythonanywhere.com/api/account/'
