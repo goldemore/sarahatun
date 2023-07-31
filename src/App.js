@@ -19,7 +19,7 @@ import MessageOneReading from "./components/adminPanelComponents/MessageOneReadi
 
 export default function App() { 
   return (
-    <HashRouter basename={process.env.PUBLIC_URL}>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
