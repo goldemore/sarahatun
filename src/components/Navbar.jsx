@@ -54,7 +54,7 @@ const Navbar = () => {
   const logExit = () => {
     localStorage.removeItem("ACCESS_TOKEN");
     localStorage.removeItem("userID");
-    return <Link to="/"/>;
+    window.location.href = "/";
   };
 
   const basket = useSelector((state) => state.Data.basket);
