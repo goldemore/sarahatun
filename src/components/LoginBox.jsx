@@ -43,7 +43,7 @@ const LoginBox = () => {
       if (resp.status === 200) {
         localStorage.setItem("ACCESS_TOKEN", resp.data.access);
         localStorage.setItem("userID", findUser.id);
-        window.location.href = "/";
+        window.location.href = "#/";
       }
       console.log(findUser);
     } catch (error) {
