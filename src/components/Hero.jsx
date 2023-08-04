@@ -21,6 +21,7 @@ const Hero = () => {
         slidesPerView={1}
         autoplay={{ delay: 3000 }}
         pagination={{ clickable: true }}
+        speed={1500}
       >
         <SwiperSlide>
           <div

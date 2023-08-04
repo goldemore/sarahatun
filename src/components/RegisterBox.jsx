@@ -3,6 +3,8 @@ import { useState } from "react";
 import axios from "axios";
 
 const RegisterBox = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const [showPassword, setShowPassword] = useState(false);
 
   const toggleShowPassword = () => {
@@ -39,7 +41,7 @@ const RegisterBox = () => {
     setRpsw(e.target.value);
   };
 
-  const regSubmit = (e) => {
+  const regSubmit = async (e) => {
     e.preventDefault();
 
     const data = {
@@ -49,27 +51,22 @@ const RegisterBox = () => {
       phone_number: tel,
       password: psw,
     };
-    console.log(data)
+    console.log(data);
 
-    axios({
-      method:'POST',
-      url:'https://derzi.pythonanywhere.com/api/account/user-create/',
-      headers:{
-        "Accept":'application/json',
-        "content-type":'application/json',
-        
-    },
-  
-    data,
-    
-    })
-    .then(resp=>{
-      console.log(resp);
-      
-    })
-    .catch(err=>{
-      console.log(err);
-    })
+    setIsLoading(true);
+
+    try {
+      const res = await axios.post(
+        "https://derzi.pythonanywhere.com/api/account/user-create/",
+        data
+      );
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+      // Handle errors
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -137,9 +134,29 @@ const RegisterBox = () => {
               required
             />
           </div>
-          <button>Qeydiyyatdan keç</button>
+
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? (
+              <div className="lds-spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            ) : (
+              "Qeydiyyatdan keç"
+            )}
+          </button>
           <span className="go_to_login">
-            Hesabınız yoxdur?
+            Hesabınız var?
             <Link to="/login" className="link_text">
               Daxil ol
             </Link>

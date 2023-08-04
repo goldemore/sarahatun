@@ -1,25 +1,21 @@
 import { Link, useLocation } from "react-router-dom";
-import { FaFacebook } from "react-icons/fa";
-import { AiFillInstagram } from "react-icons/ai";
 import logo from "../logoimg/SH logo.png";
 import { useEffect, useState } from "react";
+import { getLoggedInuser } from "../action/MainAction";
+import { useDispatch, useSelector } from "react-redux";
 
 const Navbar = () => {
-  
-  
-  const location = useLocation();
-  const hashFragment = location.hash.substring(1);
-
-  useEffect(() => {
-    if (hashFragment) {
-      const targetElement = document.getElementById(hashFragment);
-      targetElement?.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [hashFragment]);
-
-  
-
   const [isVisible, setIsVisible] = useState(false);
+
+  const { hash, key } = useLocation();
+  useEffect(() => {
+    if (hash) {
+      const targetElement = document.getElementById(hash.substring(1));
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [key, hash]);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -38,6 +34,35 @@ const Navbar = () => {
     });
   };
 
+  const goToLogin = () => {
+    window.location.href = "/login";
+  };
+  const goToRegister = () => {
+    window.location.href = "/register";
+  };
+
+  const userID = localStorage.getItem("userID");
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getLoggedInuser(userID));
+  }, [dispatch, userID]);
+
+  const loggedInUser = useSelector((state) => state.Data.loggedInUser);
+
+  const logExit = () => {
+    localStorage.removeItem("ACCESS_TOKEN");
+    localStorage.removeItem("userID");
+    window.location.href = "/";
+  };
+
+  const basket = useSelector((state) => state.Data.basket);
+  let total = 0;
+  basket.map((data) => {
+    return (total += data.quantity);
+  });
+
   return (
     <header>
       <div className="header_container">
@@ -49,7 +74,7 @@ const Navbar = () => {
         <nav>
           <ul className="nav_list">
             <li>
-              <Link to="/">Əsas səhifə</Link>
+              <Link to="/">Əsas səhİfə</Link>
             </li>
             <li>
               <Link to="/#mehsullarimiz">Məhsullar</Link>
@@ -60,7 +85,7 @@ const Navbar = () => {
               {/* <Link to="/">Haqqımızda</Link> */}
             </li>
             <li>
-              <Link to="/contact">Bizimlə əlaqə</Link>
+              <Link to="/contact">BİZİMLƏ ƏLAQƏ</Link>
             </li>
           </ul>
         </nav>
@@ -99,67 +124,59 @@ const Navbar = () => {
             </svg>
             <input type="text" placeholder="Axtarış..." />
           </div>
-          <Link to="/login">
-            <svg
-              className="user_icon"
-              width="25"
-              height="25"
-              viewBox="0 0 25 25"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M20.5 21.5V19.5C20.5 18.4391 20.0786 17.4217 19.3284 16.6716C18.5783 15.9214 17.5609 15.5 16.5 15.5H8.5C7.43913 15.5 6.42172 15.9214 5.67157 16.6716C4.92143 17.4217 4.5 18.4391 4.5 19.5V21.5"
-                stroke="black"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M12.5 11.5C14.7091 11.5 16.5 9.70914 16.5 7.5C16.5 5.29086 14.7091 3.5 12.5 3.5C10.2909 3.5 8.5 5.29086 8.5 7.5C8.5 9.70914 10.2909 11.5 12.5 11.5Z"
-                stroke="black"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </Link>
+
+          <div className="user_container_modals">
+            {Object.keys(loggedInUser).length !== 0 ? (
+              <i className="fa-regular fa-address-card"></i>
+            ) : (
+              <i className="fa-regular fa-user"></i>
+            )}
+
+            {Object.keys(loggedInUser).length !== 0 ? (
+              <div className="user_modal_hover">
+                <div className="loggedInUser_content_name">
+                  <span>{loggedInUser.email}</span>
+                </div>
+                <div className="loggedInUser_content">
+                  <i className="fa-solid fa-heart"></i>
+                  <span>Favorilərim</span>
+                </div>
+                <div className="loggedInUser_content">
+                  <i className="fa-solid fa-box"></i>
+                  <span>Sifarişlərim</span>
+                </div>
+                <div onClick={logExit} className="loggedInUser_content">
+                  <i className="fa-solid fa-right-from-bracket"></i>
+                  <span>Çıxış</span>
+                </div>
+              </div>
+            ) : (
+              <div className="user_modal_hover">
+                <button onClick={goToLogin}>Daxil ol</button>
+                <button onClick={goToRegister}>Qeydiyyatdan keç</button>
+              </div>
+            )}
+          </div>
+
           <div className="bag_icon">
             <Link to="/basket">
-              <svg
-                width="25"
-                height="25"
-                viewBox="0 0 25 25"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M6.5 2.5L3.5 6.5V20.5C3.5 21.0304 3.71071 21.5391 4.08579 21.9142C4.46086 22.2893 4.96957 22.5 5.5 22.5H19.5C20.0304 22.5 20.5391 22.2893 20.9142 21.9142C21.2893 21.5391 21.5 21.0304 21.5 20.5V6.5L18.5 2.5H6.5Z"
-                  stroke="black"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M3.5 6.5H21.5"
-                  stroke="black"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M16.5 10.5C16.5 11.5609 16.0786 12.5783 15.3284 13.3284C14.5783 14.0786 13.5609 14.5 12.5 14.5C11.4391 14.5 10.4217 14.0786 9.67157 13.3284C8.92143 12.5783 8.5 11.5609 8.5 10.5"
-                  stroke="black"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <i
+                style={{ color: "black" }}
+                className="fa-solid fa-bag-shopping"
+              ></i>
             </Link>
-            <span className="basket_count">3</span>
+            <span className="basket_count">{total}</span>
           </div>
-          <FaFacebook className="facebook" />
-          <AiFillInstagram className="instagram" />
+          <Link
+            style={{ color: "blue" }}
+            to="https://www.facebook.com"
+            target="_blank"
+          >
+            <i className="fa-brands fa-facebook"></i>
+          </Link>
+          <Link to="https://www.instagram.com" target="_blank">
+            <i className="fa-brands fa-instagram"></i>
+          </Link>
         </div>
       </div>
     </header>

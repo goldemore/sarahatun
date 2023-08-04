@@ -1,28 +1,29 @@
-
-import data from "./data";
-
+import { useEffect } from "react";
+import { getProductsList } from "../action/MainAction";
+import { useDispatch, useSelector } from "react-redux";
+import ProductsGridBox from "./ProductsGridBox";
 
 const Products = () => {
- 
-const product=()=>{
-  window.open('#/product')
-}
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProductsList());
+  }, [dispatch]);
+
+  const getProductsListValue = useSelector(
+    (state) => state.Data.getProductsListValue
+  );
 
   return (
     <main>
-      <h2 className="main_header" id="mehsullarimiz">Məhsullarımız</h2>
-      
-        <div class="grid_container">
-          {data.map((item, index) => (
-            <div className="grid_box" key={index} onClick={product}>
-                <img src={item.img} alt="img" />
-              <p className="title">{item.title}</p>
-              {item.discount ? <del className="price_del"><span>{item.price} AZN</span></del> : <span className="price">{item.price} AZN</span>}
-              {item.discount && <span className="price_discount">{item.discount} AZN</span>}
-            </div>
-          ))}
-        </div>
-      
+      <h2 className="main_header" id="mehsullarimiz">
+        Məhsullarımız
+      </h2>
+
+      <div className="grid_container">
+        {getProductsListValue.map((data, i) => {
+          return <ProductsGridBox key={i} dataProducts={data} />;
+        })}
+      </div>
     </main>
   );
 };

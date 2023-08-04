@@ -1,3 +1,10 @@
 export const initialState = {
-  count: 0,
+  usersList: [],
+  loggedInUser: {},
+  getMessagesListValue: [],
+  getProductsListValue: [],
+  getRetriveProductValue: {},
+
+  basket: JSON.parse(localStorage.getItem("basketList")) || [],
+  basketCount: 0,
 };
