@@ -13,12 +13,12 @@ export default function App() {
     <HashRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="#/login" element={<Login />} />
-        <Route path="#/register" element={<Register />} />
-        <Route path="#/basket" element={<Basket />} />
-        <Route path="#/product/:id" element={<Product />} />
-        <Route path="#/contact" element={<ContactUs/>} />
-        <Route path="#/payment" element={<Payment/>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/basket" element={<Basket />} />
+        <Route path="/product/:id" element={<Product />} />
+        <Route path="/contact" element={<ContactUs/>} />
+        <Route path="/payment" element={<Payment/>} />
       </Routes>
     </HashRouter>
   );
