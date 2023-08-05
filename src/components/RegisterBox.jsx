@@ -1,11 +1,15 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const RegisterBox = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
+
+  const [emailErr, setEmailErr] = useState("");
+  const [spamPswErr, setPswErr] = useState("");
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -43,30 +47,57 @@ const RegisterBox = () => {
 
   const regSubmit = async (e) => {
     e.preventDefault();
+    setEmailErr("");
+    setPswErr("");
 
-    const data = {
-      first_name: firstName,
-      last_name: lastName,
-      email: email,
-      phone_number: tel,
-      password: psw,
-    };
-    console.log(data);
-
-    setIsLoading(true);
-
-    try {
-      const res = await axios.post(
-        "https://derzi.pythonanywhere.com/api/account/user-create/",
-        data
-      );
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-      // Handle errors
-    } finally {
-      setIsLoading(false);
-    }
+    axios
+      .get("https://derzi.pythonanywhere.com/api/account/user-list/")
+      .then((resp) => {
+        console.log(resp);
+        let userList2 = resp.data;
+        let checkUser = userList2.find((data) => data.email === email);
+        if (checkUser) {
+          setEmailErr("* Bu email artıq qeydiyyatdan keçib");
+          console.log(psw, rPsw);
+        }
+        if (psw !== rPsw) {
+          setPswErr("* Şifrələr eyni deyil");
+        } else {
+          setIsLoading(true);
+          const data = {
+            first_name: firstName,
+            last_name: lastName,
+            email: email,
+            phone_number: tel,
+            password: psw,
+          };
+          axios
+            .post(
+              "https://derzi.pythonanywhere.com/api/account/user-create/",
+              data
+            )
+            .then((resp) => {
+              console.log(resp);
+              setIsLoading(false);
+              if (resp.status === 201) {
+                Swal.fire({
+                  title: "Qeydiyyat uğurla həyata keçdi",
+                  icon: "success",
+                  html: `Daxil olmaq üçün login və şifrənizi, <a href="/login">Login</a> keçid edərək daxil edin `,
+                  showCloseButton: true,
+                });
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              setIsLoading(false);
+            });
+          // }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -101,15 +132,18 @@ const RegisterBox = () => {
               placeholder="E-poçt"
               required
             />
-            <span className="error">Email boş qoyula bilməz.</span>
+
+            <span className="error">{emailErr}</span>
           </div>
           <div>
             <input
               value={tel}
               onChange={telChange}
               type="tel"
-              placeholder="Əlaqə nömrəsi (051)555-55-55"
+              placeholder="Əlaqə nömrəsi 0555555555"
               required
+              pattern="\d{3}\d{7}"
+              title="Əlaqə nömrəsi doğru formatda olmalıdır. 0515555555"
             />
           </div>
           <div className="eye_psw">
@@ -133,27 +167,11 @@ const RegisterBox = () => {
               placeholder="Şifrəni təkrarla"
               required
             />
+            <span className="error">{spamPswErr}</span>
           </div>
 
           <button type="submit" disabled={isLoading}>
-            {isLoading ? (
-              <div className="lds-spinner">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-            ) : (
-              "Qeydiyyatdan keç"
-            )}
+            {isLoading ? <span className="loader"></span> : "Qeydiyyatdan keç"}
           </button>
           <span className="go_to_login">
             Hesabınız var?
