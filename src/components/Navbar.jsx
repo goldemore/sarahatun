@@ -55,6 +55,7 @@ const Navbar = () => {
     localStorage.removeItem("ACCESS_TOKEN");
     localStorage.removeItem("userID");
     window.location.href = "#";
+    window.location.reload();
   };
 
  const basket = useSelector(state=>state.Data.basket)
