@@ -35,10 +35,10 @@ const Navbar = () => {
   };
 
   const goToLogin = () => {
-    window.location.href = "/login";
+    window.location.href = "#/login";
   };
   const goToRegister = () => {
-    window.location.href = "/register";
+    window.location.href = "#/register";
   };
 
   const userID = localStorage.getItem("userID");
@@ -54,7 +54,7 @@ const Navbar = () => {
   const logExit = () => {
     localStorage.removeItem("ACCESS_TOKEN");
     localStorage.removeItem("userID");
-    window.location.href = "/";
+    window.location.href = "#";
   };
 
  const basket = useSelector(state=>state.Data.basket)
@@ -64,7 +64,7 @@ const Navbar = () => {
  })
 
  const goToBasket=()=>{
-  window.location.href="/basket"
+  window.location.href="#/basket"
  }
 
   return (
