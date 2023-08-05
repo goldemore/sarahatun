@@ -50,7 +50,7 @@ const RegisterBox = () => {
     setEmailErr("");
     setPswErr("");
 
-    axios
+    await axios
       .get("https://derzi.pythonanywhere.com/api/account/user-list/")
       .then((resp) => {
         console.log(resp);
@@ -59,8 +59,7 @@ const RegisterBox = () => {
         if (checkUser) {
           setEmailErr("* Bu email artıq qeydiyyatdan keçib");
           console.log(psw, rPsw);
-        }
-        if (psw !== rPsw) {
+        } else if (psw !== rPsw) {
           setPswErr("* Şifrələr eyni deyil");
         } else {
           setIsLoading(true);
@@ -92,7 +91,6 @@ const RegisterBox = () => {
               console.log(err);
               setIsLoading(false);
             });
-          // }
         }
       })
       .catch((err) => {

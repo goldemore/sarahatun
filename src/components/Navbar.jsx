@@ -35,10 +35,10 @@ const Navbar = () => {
   };
 
   const goToLogin = () => {
-    window.location.href = "#/login";
+    window.location.href = "/login";
   };
   const goToRegister = () => {
-    window.location.href = "#/register";
+    window.location.href = "/register";
   };
 
   const userID = localStorage.getItem("userID");
@@ -50,18 +50,22 @@ const Navbar = () => {
   }, [dispatch, userID]);
 
   const loggedInUser = useSelector((state) => state.Data.loggedInUser);
-
+  
   const logExit = () => {
     localStorage.removeItem("ACCESS_TOKEN");
     localStorage.removeItem("userID");
     window.location.href = "/";
   };
 
-  const basket = useSelector((state) => state.Data.basket);
-  let total = 0;
-  basket.map((data) => {
-    return (total += data.quantity);
-  });
+ const basket = useSelector(state=>state.Data.basket)
+ let total=0
+ basket.map(data=>{
+  return total+=data.quantity
+ })
+
+ const goToBasket=()=>{
+  window.location.href="/basket"
+ }
 
   return (
     <header>
@@ -158,13 +162,13 @@ const Navbar = () => {
             )}
           </div>
 
-          <div className="bag_icon">
-            <Link to="/basket">
+          <div className="bag_icon" onClick={goToBasket}>
+            
               <i
                 style={{ color: "black" }}
                 className="fa-solid fa-bag-shopping"
               ></i>
-            </Link>
+            
             <span className="basket_count">{total}</span>
           </div>
           <Link
@@ -179,7 +183,7 @@ const Navbar = () => {
           </Link>
         </div>
       </div>
-    </header>
+    </header> 
   );
 };
 

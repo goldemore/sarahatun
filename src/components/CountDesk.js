@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const CountDesk = () => {
   const basket = useSelector((state) => state.Data.basket);
@@ -8,6 +8,15 @@ const CountDesk = () => {
   basket.map((data, i) => {
     return (total += data.quantity * data.sale_price);
   });
+  const testing = () => {
+    if (!localStorage.getItem("ACCESS_TOKEN")) {
+      Swal.fire({
+        icon: "error",
+        title: "Sifarişi tamamlamaq üçün, şəxsi kabinetinizə daxil olun.",
+        timer: 2000,
+      });
+    }
+  };
 
   localStorage.setItem("basketList", JSON.stringify(basket));
   return (
@@ -17,11 +26,10 @@ const CountDesk = () => {
           Yekun:<span>{total} AZN</span>
         </p>
         <p>
-          Çeşid mal:<span>{basket.length} ədəd</span> 
+          Çeşid mal:<span>{basket.length} ədəd</span>
         </p>
-        <Link to="/payment">
-          <button>Sifarişi tamamla</button>
-        </Link>
+
+        <button onClick={testing}>Sifarişi tamamla</button>
       </div>
     </div>
   );
