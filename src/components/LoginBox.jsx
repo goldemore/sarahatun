@@ -1,12 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { getUsersList } from "../action/MainAction";
 
 const LoginBox = () => {
   const [isLoading, setIsLoading] = useState(false);
-
   const [email, setEmail] = useState("");
   const [psw, setPsw] = useState("");
   const [spanErr, setSpanErr] = useState("");
@@ -19,39 +16,46 @@ const LoginBox = () => {
     setPsw(e.target.value);
   };
 
-  const usersList = useSelector((state) => state.Data.usersList);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getUsersList());
-  }, [dispatch]);
-
   const logsub = async (e) => {
     e.preventDefault();
-    const data = {
-      email: email,
-      password: psw,
-    };
-    const findUser = usersList.find((x) => x.email === email);
-    setIsLoading(true);
-    try {
-      const resp = await axios.post(
-        "https://derzi.pythonanywhere.com/api/token/",
-        data
-      );
-      console.log(resp);
-      if (resp.status === 200) {
-        localStorage.setItem("ACCESS_TOKEN", resp.data.access);
-        localStorage.setItem("userID", findUser.id);
-        window.location.href = "#/";
-      }
-      console.log(findUser);
-    } catch (error) {
-      console.log(error);
-      setSpanErr("* Məlumatlar Yalnışdır");
-    } finally {
-      setIsLoading(false);
-    }
+    setSpanErr("");
+
+    await axios
+      .get("https://derzi.pythonanywhere.com/api/account/user-list/")
+      .then((resp) => {
+        console.log(resp);
+        let userList2 = resp.data;
+        let checkUser = userList2.find((data) => data.email === email);
+
+        if (checkUser) {
+          setIsLoading(true);
+          const data = {
+            email: email,
+            password: psw,
+          };
+          axios
+            .post("https://derzi.pythonanywhere.com/api/token/", data)
+            .then((resp) => {
+              console.log(resp);
+              if (resp.status === 200) {
+                localStorage.setItem("ACCESS_TOKEN", resp.data.access);
+                localStorage.setItem("userID", checkUser.id);
+                window.location.href = "/";
+              }
+              setIsLoading(false);
+            })
+            .catch((err) => {
+              console.log(err);
+              setSpanErr("* Şifrə Yalnışdır ");
+              setIsLoading(false);
+            });
+        } else {
+          setSpanErr("* Daxil etdiyiniz email və ya istifadəçi adı yanlışdır ");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
