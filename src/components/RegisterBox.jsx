@@ -80,9 +80,9 @@ const RegisterBox = () => {
               setIsLoading(false);
               if (resp.status === 201) {
                 Swal.fire({
-                  title: "Qeydiyyat uğurla həyata keçdi",
+                  title: `Qeydiyyat uğurla həyata keçdi. Daxil olmaq üçün login və şifrənizi, <a href="/login">Login</a>-ə keçid edərək daxil edin`,
                   icon: "success",
-                  html: `Daxil olmaq üçün login və şifrənizi, <a href="/login">Login</a> keçid edərək daxil edin `,
+                  html: ` `,
                   showCloseButton: true,
                 });
               }
