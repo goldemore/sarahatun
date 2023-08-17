@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const LoginBox = () => {
+  const navigate=useNavigate()
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [psw, setPsw] = useState("");
@@ -40,7 +41,8 @@ const LoginBox = () => {
               if (resp.status === 200) {
                 localStorage.setItem("ACCESS_TOKEN", resp.data.access);
                 localStorage.setItem("userID", checkUser.id);
-                window.location.href = "/";
+                // window.location.href = "/";
+                navigate("/");
               }
               setIsLoading(false);
             })
