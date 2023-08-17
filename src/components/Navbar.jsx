@@ -59,7 +59,7 @@ const Navbar = () => {
     navigate("/myfavourites");
   };
   const goToBasket = () => {
-    window.location.href = "/basket";
+    window.location.href = "#/basket";
   };
   const goToMyOrderItems = () => {
     // window.location.href=("/myorders")
