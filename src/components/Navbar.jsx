@@ -54,6 +54,7 @@ const Navbar = () => {
   }, [dispatch, userID]);
 
   const loggedInUser = useSelector((state) => state.Data.loggedInUser);
+  console.log(loggedInUser);
 
   const goToMyFavourite = () => {
     navigate("/myfavourites");
@@ -70,8 +71,9 @@ const Navbar = () => {
   const logExit = () => {
     localStorage.removeItem("ACCESS_TOKEN");
     localStorage.removeItem("userID");
+    window.location.reload();
     // window.location.href = "#/";
-    navigate("/");
+    // navigate("/");
 
   };
 
