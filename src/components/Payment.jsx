@@ -1,14 +1,15 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Payment = ({ setIsOpen }) => {
+  const navigate=useNavigate()
   const basket = useSelector((state) => state.Data.basket);
 
   const myOrderIDvalue = useSelector((state) => state.Data.myOrderIDvalue);
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
 
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [isLoader, setIsloader] = useState(false);
@@ -44,7 +45,6 @@ const Payment = ({ setIsOpen }) => {
     }
 
     if (success) {
-     
       setIsSuccessful(true); // Если все запросы выполнены успешно
       setIsloader(false);
     }
@@ -58,6 +58,7 @@ const Payment = ({ setIsOpen }) => {
       timer: 2000,
     });
     window.location.href = "/";
+    navigate("/")
   }
 
   return (

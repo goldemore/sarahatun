@@ -6,12 +6,13 @@ import { getMyOrderID } from "../action/MainAction";
 import PaymentDesk from "./PaymentDesk";
 import axios from "axios";
 import VisitCartOfUser from "./VisitCartOfUser";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import titles from "../pages/titles/titles";
 
 const AddressPayment = () => {
   const dispatch = useDispatch();
+  const navigate=useNavigate()
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -87,6 +88,7 @@ const AddressPayment = () => {
         console.log(resp);
         setIsLoading(false);
         window.location.href = "#/basket/payment";
+        navigate("/basket/payment")
       })
       .catch((err) => {
         console.log(err);

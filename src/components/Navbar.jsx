@@ -59,7 +59,8 @@ const Navbar = () => {
     navigate("/myfavourites");
   };
   const goToBasket = () => {
-    window.location.href = "#/basket";
+    // window.location.href = "#/basket";
+    navigate("/basket")
   };
   const goToMyOrderItems = () => {
     // window.location.href=("/myorders")
@@ -69,7 +70,9 @@ const Navbar = () => {
   const logExit = () => {
     localStorage.removeItem("ACCESS_TOKEN");
     localStorage.removeItem("userID");
-    window.location.href = "/";
+    // window.location.href = "/";
+    navigate("/");
+
   };
 
   const basket = useSelector((state) => state.Data.basket);
