@@ -25,7 +25,7 @@ const ProductsGridBox = ({ dataProducts }) => {
     console.log(checkItem);
 
     if (Object.keys(loggedInUser).length === 0) {
-     window.location.href="/login"
+     window.location.href="#/login"
     } else {
       if (!checkItem) {
         const data = {
@@ -79,7 +79,7 @@ const ProductsGridBox = ({ dataProducts }) => {
       !e.target.classList.contains("heart_for_favorite") &&
       !e.target.classList.contains("fa-heart")
     ) {
-      window.open(`/product/${dataProducts.id}`, "_blank");
+      window.open(`#/product/${dataProducts.id}`, "_blank");
     }
   };
 

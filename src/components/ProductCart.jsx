@@ -42,7 +42,7 @@ const ProductCart = () => {
   const addRemoveFavorite = async (id) => {
     console.log(id);
     if (Object.keys(loggedInUser).length === 0) {
-      window.location.href = "/login";
+      window.location.href = "#/login";
     } else {
       if (!checkItem) {
         const data = {
