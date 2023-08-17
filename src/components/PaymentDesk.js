@@ -1,35 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-
-import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import Payment from "./Payment";
 
-const CountDesk = () => {
+const CountDesk = ({ myOrderIDvalue }) => {
   const basket = useSelector((state) => state.Data.basket);
+  const [isOpen, setIsOpen] = useState(false);
   let total = 0;
   basket.map((data, i) => {
     return (total += data.sale_price
       ? data.quantity * data.sale_price
       : data.quantity * data.price);
   });
-
-  const navigate = useNavigate();
-  const loggedInUser = useSelector((state) => state.Data.loggedInUser);
-  console.log(loggedInUser);
-  const paymentProcces = () => {
-    if (Object.keys(loggedInUser).length === 0) {
+  const payment = () => {
+    if (basket.length === 0) {
       Swal.fire({
         position: "top-end",
         icon: "error",
-        title: "Zəhmət olmasa şəxsi kabinetinizə daxil olun",
+        title: "Səbət boşdur",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else if (myOrderIDvalue.length === 0) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "İlk öncə Ünvan bilgilərini doldurun",
         showConfirmButton: false,
         timer: 1500,
       });
     } else {
-      navigate("/basket/payment");
+      setIsOpen(true);
     }
   };
-
   return (
     <div className="right_side">
       <div className="right_side_content">
@@ -39,9 +42,9 @@ const CountDesk = () => {
         <p>
           Çeşid mal:<span>{basket.length} ədəd</span>
         </p>
-
-        <button onClick={paymentProcces}>Sifarişi tamamla</button>
+        <button onClick={payment}>Ödəniş et</button>
       </div>
+      {isOpen && <Payment isOpen={isOpen} setIsOpen={setIsOpen} />}
     </div>
   );
 };

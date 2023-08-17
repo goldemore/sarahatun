@@ -6,8 +6,10 @@ import { FcCalendar } from "react-icons/fc";
 import axios from "axios";
 import Swal from "sweetalert2";
 
+
 const Contact = () => {
   const [isLoading, setIsLoading] = useState(false);
+
 
   const [name, setName] = useState("");
   const [email, setLastemail] = useState("");
@@ -29,16 +31,13 @@ const Contact = () => {
 
   const messageSub = async (e) => {
     e.preventDefault();
-   
+
     if (name === "" || email === "" || tel === "" || text === "") {
       Swal.fire({
         icon: "error",
         title: "Zəhmət olmasa bütün xanaları doldurun",
         text: "",
         timer: 2000,
-        customClass: {
-          title: "my-title-class", // класс для изменения стиля заголовка
-        },
       });
     } else {
       setIsLoading(true);
@@ -57,7 +56,13 @@ const Contact = () => {
           console.log(resp);
           setIsLoading(false);
           if (resp.status === 201) {
-            Swal.fire("", "Mesajınız uğurla göndərildi", "success");
+            Swal.fire({
+              icon: "success",
+              title: "Mesajınız uğurla göndərildi",
+              text: "",
+              timer: 2000,
+            });
+
             setName("");
             setLastemail("");
             setTel("");
@@ -87,14 +92,14 @@ const Contact = () => {
             <HiOutlineMail className="box_icon" />
             <div>
               <h2>Email</h2>
-              <p>info@sarahatun.com.az</p>
+              <p>info@derzi.az</p>
             </div>
           </div>
           <div className="contact_box">
             <FcPhone className="box_icon" />
             <div>
               <h2>Telefon</h2>
-              <p>012-555-55-55</p>
+              <p>0125555555</p>
             </div>
           </div>
           <div className="contact_box">
@@ -112,25 +117,34 @@ const Contact = () => {
         <form className="contact_form" onSubmit={messageSub}>
           <h2>Sualınız var? Bizə yazın</h2>
           <div className="contact_flex">
-            <input
-              value={name}
-              onChange={nameChange}
-              type="text"
-              placeholder="Ad"
-            />
+            <label htmlFor="name">
+              <input
+                id="name"
+                value={name}
+                onChange={nameChange}
+                type="text"
+                placeholder="Ad/Soyad"
+              />
+            </label>
           </div>
           <div className="contact_flex">
-            <input
-              value={tel}
-              onChange={telChange}
-              type="tel"
-              placeholder="Telefon"
-            />
+            <label htmlFor="phone">
+              {" "}
+              <input
+                id="phone"
+                value={tel}
+                onChange={telChange}
+                type="tel"
+                placeholder="Telefon"
+              />
+            </label>
+
             <input
               type="email"
               placeholder="Email"
               value={email}
               onChange={emailChange}
+              required
             />
           </div>
           <textarea

@@ -24,8 +24,8 @@ const LoginBox = () => {
       .get("https://derzi.pythonanywhere.com/api/account/user-list/")
       .then((resp) => {
         console.log(resp);
-        let userList2 = resp.data;
-        let checkUser = userList2.find((data) => data.email === email);
+        const userList2 = resp.data;
+        const checkUser = userList2.find((data) => data.email === email);
 
         if (checkUser) {
           setIsLoading(true);
@@ -40,7 +40,7 @@ const LoginBox = () => {
               if (resp.status === 200) {
                 localStorage.setItem("ACCESS_TOKEN", resp.data.access);
                 localStorage.setItem("userID", checkUser.id);
-                window.location.href = "#";
+                window.location.href = "/";
               }
               setIsLoading(false);
             })
@@ -67,22 +67,28 @@ const LoginBox = () => {
           <h1 className="login_header">Daxil Ol</h1>
           <form onSubmit={logsub}>
             <div>
-              <input
-                value={email}
-                onChange={emailChange}
-                type="email"
-                placeholder="E-poçt"
-                required
-              />
+              <label htmlFor="email">
+                <input
+                  id="email"
+                  value={email}
+                  onChange={emailChange}
+                  type="email"
+                  placeholder="E-poçt"
+                  required
+                />
+              </label>
             </div>
             <div>
-              <input
-                value={psw}
-                onChange={pswChange}
-                type="password"
-                placeholder="Şifrə"
-                required
-              />
+              <label htmlFor="password">
+                <input
+                  id="password"
+                  value={psw}
+                  onChange={pswChange}
+                  type="password"
+                  placeholder="Şifrə"
+                  required
+                />
+              </label>
               <span className="error">{spanErr}</span>
             </div>
             <button>Daxil ol</button>

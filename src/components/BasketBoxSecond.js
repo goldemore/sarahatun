@@ -1,12 +1,11 @@
 import React from "react";
 import { BsTrash } from "react-icons/bs";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { decr, delitem, incr } from "../redux/MainReducer";
 
 const BasketBoxSecond = ({ data }) => {
   const dispatch = useDispatch();
-
-
+  console.log(data);
   return (
     <div className="left_side">
       <div className="b_img">
@@ -17,10 +16,14 @@ const BasketBoxSecond = ({ data }) => {
           <p className="category">{data.title}</p>
           <div className="color_size">
             <p>
-              Rəng: <span>Boz</span>
+              Rəng: <span>{data.choise_color}</span>
             </p>
+            <div
+              style={{ background: `${data.color_code}` }}
+              className="circle_of_choose"
+            ></div>
             <p>
-              Ölçü: <span>M</span>
+              Ölçü: <span>{data.choise_size}</span>
             </p>
           </div>
         </div>
@@ -30,7 +33,12 @@ const BasketBoxSecond = ({ data }) => {
           <button onClick={() => dispatch(incr(data))}>+</button>
         </div>
         <div className="b_price">
-          <span>{data.sale_price * data.quantity} AZN</span>
+          <span>
+            {data.sale_price
+              ? data.sale_price * data.quantity
+              : data.price * data.quantity}{" "}
+            AZN
+          </span>
         </div>
         <div className="trash">
           <BsTrash onClick={() => dispatch(delitem(data))} />

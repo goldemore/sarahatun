@@ -1,13 +1,15 @@
-import { Link, useLocation } from "react-router-dom";
-import logo from "../logoimg/SH logo.png";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getLoggedInuser } from "../action/MainAction";
 import { useDispatch, useSelector } from "react-redux";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { hash, key } = useLocation();
+
   const [isVisible, setIsVisible] = useState(false);
 
-  const { hash, key } = useLocation();
   useEffect(() => {
     if (hash) {
       const targetElement = document.getElementById(hash.substring(1));
@@ -35,45 +37,54 @@ const Navbar = () => {
   };
 
   const goToLogin = () => {
-    window.location.href = "#/login";
+    window.location.href = "/login";
   };
   const goToRegister = () => {
-    window.location.href = "#/register";
+    window.location.href = "/register";
   };
 
   const userID = localStorage.getItem("userID");
 
-  const dispatch = useDispatch();
+  const [isLoading, setIsLoading]=useState(true)
 
   useEffect(() => {
-    dispatch(getLoggedInuser(userID));
+    dispatch(getLoggedInuser(userID))
+    .then(()=>setIsLoading(false))
+    .catch(()=>setIsLoading(false))
   }, [dispatch, userID]);
 
   const loggedInUser = useSelector((state) => state.Data.loggedInUser);
-  
+
+  const goToMyFavourite = () => {
+    navigate("/myfavourites");
+  };
+  const goToBasket = () => {
+    window.location.href = "/basket";
+  };
+  const goToMyOrderItems = () => {
+    // window.location.href=("/myorders")
+    navigate("/myorders");
+  };
+
   const logExit = () => {
     localStorage.removeItem("ACCESS_TOKEN");
     localStorage.removeItem("userID");
-    window.location.href = "#";
-    window.location.reload();
+    window.location.href = "/";
   };
 
- const basket = useSelector(state=>state.Data.basket)
- let total=0
- basket.map(data=>{
-  return total+=data.quantity
- })
-
- const goToBasket=()=>{
-  window.location.href="#/basket"
- }
+  const basket = useSelector((state) => state.Data.basket);
+  let total = 0;
+  basket.map((data) => {
+    return (total += data.quantity);
+  });
 
   return (
     <header>
       <div className="header_container">
         <div className="logo">
           <Link to="/">
-            <img src={logo} alt="Sara Hatun Logo" />
+            {/* <img src={logo} alt="Sara Hatun Logo" /> */}
+            <span className="logo_style">Sara Hatun</span>
           </Link>
         </div>
         <nav>
@@ -131,22 +142,28 @@ const Navbar = () => {
           </div>
 
           <div className="user_container_modals">
-            {Object.keys(loggedInUser).length !== 0 ? (
-              <i className="fa-regular fa-address-card"></i>
-            ) : (
-              <i className="fa-regular fa-user"></i>
-            )}
+            {isLoading ? <div className="loader" style={{width:"21px", height:'19px'}}></div>: <i
+              className={
+                Object.keys(loggedInUser).length !== 0
+                  ? "fa-regular fa-address-card"
+                  : "fa-regular fa-user"
+              }
+            ></i>}
+            
 
             {Object.keys(loggedInUser).length !== 0 ? (
               <div className="user_modal_hover">
-                <div className="loggedInUser_content_name">
+                <div style={{fontSize:"1.3rem"}} className="loggedInUser_content_name">
                   <span>{loggedInUser.email}</span>
                 </div>
-                <div className="loggedInUser_content">
+                <div onClick={goToMyFavourite} className="loggedInUser_content">
                   <i className="fa-solid fa-heart"></i>
                   <span>Favorilərim</span>
                 </div>
-                <div className="loggedInUser_content">
+                <div
+                  className="loggedInUser_content"
+                  onClick={goToMyOrderItems}
+                >
                   <i className="fa-solid fa-box"></i>
                   <span>Sifarişlərim</span>
                 </div>
@@ -156,7 +173,7 @@ const Navbar = () => {
                 </div>
               </div>
             ) : (
-              <div className="user_modal_hover">
+              <div style={{width:'140px'}} className="user_modal_hover">
                 <button onClick={goToLogin}>Daxil ol</button>
                 <button onClick={goToRegister}>Qeydiyyatdan keç</button>
               </div>
@@ -164,12 +181,11 @@ const Navbar = () => {
           </div>
 
           <div className="bag_icon" onClick={goToBasket}>
-            
-              <i
-                style={{ color: "black" }}
-                className="fa-solid fa-bag-shopping"
-              ></i>
-            
+            <i
+              style={{ color: "black" }}
+              className="fa-solid fa-bag-shopping"
+            ></i>
+
             <span className="basket_count">{total}</span>
           </div>
           <Link
@@ -184,7 +200,7 @@ const Navbar = () => {
           </Link>
         </div>
       </div>
-    </header> 
+    </header>
   );
 };
 
