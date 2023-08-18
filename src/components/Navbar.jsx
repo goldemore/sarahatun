@@ -3,6 +3,10 @@ import { useEffect, useState } from "react";
 import { getLoggedInuser } from "../action/MainAction";
 import { useDispatch, useSelector } from "react-redux";
 
+import { FiShoppingBag } from "react-icons/fi";
+import { AiFillInstagram, AiOutlineMenu } from "react-icons/ai";
+import { FaFacebookF } from "react-icons/fa";
+
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -54,7 +58,6 @@ const Navbar = () => {
   }, [dispatch, userID]);
 
   const loggedInUser = useSelector((state) => state.Data.loggedInUser);
-  console.log(loggedInUser);
 
   const goToMyFavourite = () => {
     navigate("/myfavourites");
@@ -71,8 +74,7 @@ const Navbar = () => {
   const logExit = () => {
     localStorage.removeItem("ACCESS_TOKEN");
     localStorage.removeItem("userID");
-    window.location.reload();
-    // window.location.href = "#/";
+    window.location.href = "/";
     // navigate("/");
 
   };
@@ -93,6 +95,7 @@ const Navbar = () => {
           </Link>
         </div>
         <nav>
+          <input type="checkbox" id="checkbox" />
           <ul className="nav_list">
             <li>
               <Link to="/">Əsas səhİfə</Link>
@@ -106,8 +109,24 @@ const Navbar = () => {
               {/* <Link to="/">Haqqımızda</Link> */}
             </li>
             <li>
-              <Link to="/contact">BİZİMLƏ ƏLAQƏ</Link>
+              <Link to="/contact">Bİzİmlə əlaqə</Link>
             </li>
+            <div className="social_media_i">
+              <Link
+                to="https://www.instagram.com"
+                target="_blank"
+                style={{ color: "#000" }}
+              >
+                <AiFillInstagram className="instagram" size={25} />
+              </Link>
+              <Link
+                to="https://www.facebook.com"
+                target="_blank"
+                style={{ color: "#000" }}
+              >
+                <FaFacebookF className="facebook" size={20} />
+              </Link>
+            </div>
           </ul>
         </nav>
 
@@ -120,37 +139,12 @@ const Navbar = () => {
         </button>
 
         <div className="header_icons_container">
-          <div className="input_icon">
-            <svg
-              width="25"
-              height="25"
-              viewBox="0 0 25 25"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M11.5 19.5C15.9183 19.5 19.5 15.9183 19.5 11.5C19.5 7.08172 15.9183 3.5 11.5 3.5C7.08172 3.5 3.5 7.08172 3.5 11.5C3.5 15.9183 7.08172 19.5 11.5 19.5Z"
-                stroke="black"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M21.5 21.5L17.15 17.15"
-                stroke="black"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <input type="text" placeholder="Axtarış..." />
-          </div>
-
           <div className="user_container_modals">
             {isLoading ? <div className="loader" style={{width:"21px", height:'19px'}}></div>: <i
+            
               className={
                 Object.keys(loggedInUser).length !== 0
-                  ? "fa-regular fa-address-card"
+                  ? "fa-solid fa-circle-user"
                   : "fa-regular fa-user"
               }
             ></i>}
@@ -186,23 +180,30 @@ const Navbar = () => {
           </div>
 
           <div className="bag_icon" onClick={goToBasket}>
-            <i
-              style={{ color: "black" }}
-              className="fa-solid fa-bag-shopping"
-            ></i>
-
+            <FiShoppingBag size={22} />
             <span className="basket_count">{total}</span>
           </div>
-          <Link
-            style={{ color: "blue" }}
-            to="https://www.facebook.com"
-            target="_blank"
-          >
-            <i className="fa-brands fa-facebook"></i>
-          </Link>
-          <Link to="https://www.instagram.com" target="_blank">
-            <i className="fa-brands fa-instagram"></i>
-          </Link>
+          <div className="social_media_icons">
+            <Link
+              to="https://www.instagram.com"
+              target="_blank"
+              style={{ color: "#000" }}
+            >
+              <AiFillInstagram className="instagram" size={25} />
+            </Link>
+            <Link
+              to="https://www.facebook.com"
+              target="_blank"
+              style={{ color: "#000" }}
+            >
+              <FaFacebookF className="facebook" size={20} />
+            </Link>
+          </div>
+          <div>
+            <label htmlFor="checkbox">
+              <AiOutlineMenu className="burger_menu"/>
+            </label>
+          </div>
         </div>
       </div>
     </header>

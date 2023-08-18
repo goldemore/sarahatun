@@ -7,12 +7,16 @@ const RegisterBox = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
+  const [showRePassword, setShowRePassword] = useState(false);
 
   const [emailErr, setEmailErr] = useState("");
   const [spamPswErr, setPswErr] = useState("");
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+  const toggleShowRePassword = () => {
+    setShowRePassword(!showRePassword);
   };
 
   const [firstName, setRegName] = useState("");
@@ -157,14 +161,18 @@ const RegisterBox = () => {
               onClick={toggleShowPassword}
             ></i>
           </div>
-          <div>
+          <div className="eye_psw">
             <input
               value={rPsw}
               onChange={rPswChange}
-              type="password"
+              type={showRePassword ? "text" : "password"}
               placeholder="Şifrəni təkrarla"
               required
             />
+            <i
+              className={`fa-regular fa-eye${showRePassword ? "-slash" : ""}`}
+              onClick={toggleShowRePassword}
+            ></i>
             <span className="error">{spamPswErr}</span>
           </div>
 

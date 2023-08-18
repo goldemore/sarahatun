@@ -7,10 +7,9 @@ import Swal from "sweetalert2";
 const CountDesk = () => {
   const basket = useSelector((state) => state.Data.basket);
   let total = 0;
-  basket.map((data, i) => {
-    return (total += data.sale_price
-      ? data.quantity * data.sale_price
-      : data.quantity * data.price);
+  basket.forEach((data) => {
+    const price = data.sale_price ? data.sale_price : data.price;
+    total += parseFloat((data.quantity * price).toFixed(2));
   });
 
   const navigate = useNavigate();
@@ -37,7 +36,7 @@ const CountDesk = () => {
           Yekun:<span>{total} AZN</span>
         </p>
         <p>
-          Çeşid mal:<span>{basket.length} ədəd</span>
+          Məhsulun növü:<span>{basket.length} növ</span>
         </p>
 
         <button onClick={paymentProcces}>Sifarişi tamamla</button>

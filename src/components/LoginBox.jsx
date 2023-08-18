@@ -8,6 +8,11 @@ const LoginBox = () => {
   const [email, setEmail] = useState("");
   const [psw, setPsw] = useState("");
   const [spanErr, setSpanErr] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const emailChange = (e) => {
     setEmail(e.target.value);
@@ -81,15 +86,19 @@ const LoginBox = () => {
               </label>
             </div>
             <div>
-              <label htmlFor="password">
+              <label htmlFor="password" className="eye_psw">
                 <input
                   id="password"
                   value={psw}
                   onChange={pswChange}
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Şifrə"
                   required
                 />
+                <i
+                  className={`fa-regular fa-eye${showPassword ? "-slash" : ""}`}
+                  onClick={toggleShowPassword}
+                ></i>
               </label>
               <span className="error">{spanErr}</span>
             </div>

@@ -87,7 +87,7 @@ const AddressPayment = () => {
       .then((resp) => {
         console.log(resp);
         setIsLoading(false);
-        window.location.href = "#/basket/payment";
+        // window.location.href = "#/basket/payment";
         navigate("/basket/payment")
       })
       .catch((err) => {

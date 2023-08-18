@@ -18,10 +18,6 @@ const BasketBoxSecond = ({ data }) => {
             <p>
               Rəng: <span>{data.choise_color}</span>
             </p>
-            <div
-              style={{ background: `${data.color_code}` }}
-              className="circle_of_choose"
-            ></div>
             <p>
               Ölçü: <span>{data.choise_size}</span>
             </p>
@@ -35,8 +31,8 @@ const BasketBoxSecond = ({ data }) => {
         <div className="b_price">
           <span>
             {data.sale_price
-              ? data.sale_price * data.quantity
-              : data.price * data.quantity}{" "}
+              ? (data.sale_price * data.quantity).toFixed(2)
+              : (data.price * data.quantity).toFixed(2)}{" "}
             AZN
           </span>
         </div>

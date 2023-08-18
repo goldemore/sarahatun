@@ -15,6 +15,7 @@
   --user_col: rgb(255, 255, 129);
   --ad_pan_h_bg: #ededed;
   --column2_bg: #f7f7f7;
+  --line: #112130;
 }
 
 * {
@@ -54,15 +55,24 @@ header {
   width: 120px;
   height: 60px;
 }
+.logo {
+  width: 120px;
+  height: 60px;
+}
+
 .logo_style {
   font-family: "Clicker Script", cursive;
-  font-size: 4.5rem;
-  padding: 0 10px;
+  font-size: 3rem;
   color: #474747;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
 }
+
 .nav_list {
   display: flex;
-  gap: 35px;
+  gap: 55px;
 }
 
 .nav_list li {
@@ -78,18 +88,15 @@ header {
   text-decoration: none;
   color: var(--logo--black);
 }
-.aboutUs {
-  font-family: "Josefin Sans", sans-serif;
-  text-align: center;
-}
+
 .nav_list li a::after {
   content: "";
   position: absolute;
   width: 0;
   left: 0;
   bottom: -5px;
-  height: 3px;
-  background: #e55472;
+  height: 2px;
+  background: var(--logo--black);
   transition: 0.5s;
 }
 
@@ -98,7 +105,7 @@ header {
 }
 
 .nav_list li a:hover {
-  color: #e55472;
+  color: var(--logo--black);
 }
 
 .header_icons_container {
@@ -147,7 +154,8 @@ header {
   background-color: #ff77ff;
 }
 .user_container_modals i {
-  font-size: 1.9rem;
+  font-size: 2.1rem;
+  cursor: pointer;
 }
 .user_container_modals:hover .user_modal_hover {
   display: block;
@@ -160,6 +168,12 @@ header {
   gap: 20;
   cursor: pointer;
   margin-top: 6px;
+}
+.loggedInUser_content_name span{
+  max-width: 200px; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .loggedInUser_content i {
   font-size: 1.3rem;
@@ -179,25 +193,36 @@ header {
 
 .basket_count {
   position: absolute;
-  font-size: 12px;
+  font-size: 11px;
   text-align: center;
-  top: 0;
-  right: -7px;
+  top: -5px;
+  right: -10px;
   width: 15px;
   height: 15px;
   line-height: 15px;
   border-radius: 50%;
   background-color: #02b474;
-  color: #fff;
+  color: var(--black);
 }
 
-.facebook,
-.instagram {
-  width: 26px;
-  height: 26px;
+.social_media_icons {
+  display: flex;
+  gap: 19px;
 }
 
-.input_icon {
+.social_media_i {
+  display: none;
+}
+
+.burger_menu {
+  display: none;
+}
+
+#checkbox {
+  display: none;
+}
+
+/* .input_icon {
   width: 186px;
   height: 31px;
   display: flex;
@@ -223,15 +248,15 @@ header {
   color: var(--black);
   font-size: 1.6rem;
   margin-right: 5px;
-}
+} */
 
 /* Hero */
 
 .head_slogan {
   height: 89vh;
-  font-family: "Allison", cursive;
+  font-family: "Allison";
   font-size: 6.6rem;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.5em;
   color: var(--white);
   display: flex;
@@ -528,20 +553,48 @@ footer {
 }
 
 .aboutUs_information {
-  max-width: 1224px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  padding: 0 20px;
+  gap: 30px 20px;
 }
 
-.aboutUs,
+.flex_wrap {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.aboutUs{
+  max-width: 560px;
+}
+
 .information {
-  width: 491px;
-  position: relative;
+  width: 300px;
 }
 
-.aboutUs h4 {
-  font-family: "Josefin Sans";
+.follow_us {
+  width: 100px;
+}
+
+.information div {
+  display: flex;
+  align-items: center;
+  margin-top: 44px;
+}
+
+.social_media {
+  display: flex;
+  justify-content: center;
+  gap: 19px;
+}
+
+.aboutUs h4,
+.information h4,
+.follow_us h4 {
+  font-family: "Merriweather";
   text-align: center;
   font-weight: 400;
   font-size: 1.8rem;
@@ -551,40 +604,26 @@ footer {
 }
 
 .information h4 {
-  font-family: "Josefin Sans";
-  font-weight: 400;
-  font-size: 1.8rem;
-  line-height: 18px;
-  color: var(--title);
+  text-align: left;
 }
 
 .aboutUs p {
-  font-family: "Josefin Sans";
+  font-family: "Lato", sans-serif;
   text-align: center;
   font-weight: 300;
   font-size: 1.8rem;
   line-height: 30px;
+  text-align: justify;
   color: var(--footer-p);
 }
 
 .information p {
-  font-family: "Josefin Sans";
-  width: 256px;
+  font-family: "Lato", sans-serif;
   font-weight: 300;
   font-size: 1.8rem;
   line-height: 22px;
   color: var(--footer-p);
-  margin-top: 44px;
-}
-
-.information p::before {
-  position: absolute;
-  content: "";
-  width: 1px;
-  height: 352px;
-  top: -44px;
-  left: -121px;
-  background-color: var(--line);
+  margin-left: 10px;
 }
 
 /* Login & Register */
@@ -612,9 +651,12 @@ footer {
 }
 .eye_psw {
   display: flex;
+  position: relative;
 }
 .eye_psw i {
-  margin-top: 40px;
+  position: absolute;
+  top: 40px;
+  right: 5px;
   cursor: pointer;
 }
 .login_box input,
@@ -775,7 +817,7 @@ footer {
 /* Basket component */
 
 .b_container {
-  max-width: 1300px;
+  max-width: 1170px;
   margin: 30px auto 195px;
   padding: 0 16px;
   background: #fffdf8;
@@ -786,7 +828,7 @@ footer {
   font-size: 3.2rem;
   color: var(--title);
   font-weight: 400;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 .basket_box {
@@ -807,9 +849,10 @@ footer {
 .left_side {
   max-width: 700px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+  background: #FFF;
   border-radius: 8px;
 }
 .left_side img {
@@ -839,7 +882,7 @@ footer {
 .category {
   font-size: 1.8rem;
   color: var(--title);
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 30px;
 }
 
@@ -858,7 +901,7 @@ footer {
 }
 
 .color_size span {
-  margin-left: 10px;
+  margin-left: 15px;
 }
 
 .b_buttons {
@@ -910,7 +953,7 @@ footer {
 .right_side_content {
   display: flex;
   flex-direction: column;
-  gap: 42px;
+  gap: 20px;
 }
 
 .right_side_content p {
@@ -920,6 +963,11 @@ footer {
   font-weight: 700;
   display: flex;
   justify-content: space-between;
+}
+
+.right_side_content p:nth-child(2) {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 15px;
 }
 
 .right_side_content button,
@@ -1583,4 +1631,172 @@ footer {
   outline: none;
   padding-left: 5px;
   font-family: "Josefin Sans", sans-serif;
+}
+
+
+
+
+/* Responsive */
+
+
+@media screen and (max-width: 1040px) {
+  .contact_box {
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .nav_list {
+    gap: 30px;
+  }
+  .header_container .logo {
+    width: 100px;
+  }
+  .nav_list li a {
+    font-size: 1.6rem;
+  }
+  
+  /* contact */
+  .contact_content {
+    flex-direction: column;
+  }
+  .contact_left {
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+  }
+  .contact_form {
+    width: 100%;
+    margin-top: 50px;
+  }
+  .contact_flex input {
+    width: 100%;
+  }
+  .contact_flex label {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 786px) {
+  .nav_list {
+    position: fixed;
+    top: 11vh;
+    right: -100%;
+    width: 200px;
+    height: 240px;
+    flex-direction: column;
+    align-items: center;
+    background: yellowgreen;
+    padding-top: 15px;
+    z-index: 9;
+    transition: 0.8s linear;
+  }
+  .social_media_i {
+    display: flex;
+    align-items: center;
+    margin-top: -15px;
+    gap: 10px;
+  }
+  .social_media_icons {
+    display: none;
+  }
+  .burger_menu {
+    display: block;
+    font-size: 2rem;
+    color: var(--black);
+    cursor: pointer;
+  }
+  #checkbox:checked ~ .nav_list {
+    right: 0;
+  }
+
+  .head_slogan {
+    font-size: 5.4rem;
+    letter-spacing: 0.4em;
+  }
+
+  /* footer */
+  .aboutUs_information {
+    flex-direction: column;
+  }
+  .aboutUs {
+    max-width: 100%;
+  }
+  .flex_wrap {
+    margin: 0 auto;
+  }
+  .aboutUs h4,
+  .information h4,
+  .follow_us h4 {
+    font-size: 1.6rem;
+  }
+  .aboutUs p,
+  .information p {
+    font-size: 1.6rem;
+  }
+}
+
+@media screen and (max-width: 510px) {
+  .contact_left {
+    width: 100%;
+    grid-template-columns: auto;
+  }
+  .contact_container h1 {
+    font-size: 2.6rem;
+    margin-bottom: 40px;
+  }
+  .contact_box h2 {
+    font-size: 2rem;
+  }
+  .contact_form h2 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+  }
+  .head_slogan {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  /* footer */
+  .flex_wrap {
+    flex-direction: column;
+  }
+  .information {
+    width: 280px;
+  }
+  .information div {
+    margin-top: 20px;
+  }
+  .follow_us h4 {
+    display: none;
+  }
+  .aboutUs h4,
+  .information h4 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .login_register_container {
+    width: 100%;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  .login_box button,
+  .register_box button {
+    font-size: 1.4rem;
+    margin: 20px 0 20px;
+  }
+  .login_header,
+  .register_header {
+    font-size: 2.2rem;
+  }
+  .go_to_register {
+    flex-direction: column;
+    font-size: 1.4rem;
+  }
+  .go_to_login .link_text {
+    font-size: 1.4rem;
+  }
 }

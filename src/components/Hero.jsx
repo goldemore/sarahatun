@@ -28,7 +28,7 @@ const Hero = () => {
             className="slideStyle"
             style={{ backgroundImage: `url(${img1})` }}
           >
-            <h1 className="head_slogan">Zərif və güclü</h1>
+            <h2 className="head_slogan">Zərif və güclü</h2>
           </div>
         </SwiperSlide>
         <SwiperSlide>

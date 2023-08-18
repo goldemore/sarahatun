@@ -45,20 +45,24 @@ const Payment = ({ setIsOpen }) => {
     }
 
     if (success) {
+      
       setIsSuccessful(true); // Если все запросы выполнены успешно
       setIsloader(false);
     }
   };
 
-  if (isSuccessful) {
+  if (isSuccessful) { 
     Swal.fire({
       icon: "success",
       title: "Ödəmə uğurla həyata keçdi. Alış üçün təşəkkürlər :)",
       text: "",
-      timer: 2000,
+      timer: 5000,
     });
-    window.location.href = "/";
-    navigate("/")
+    setTimeout(function(){
+      localStorage.removeItem('basketList')
+      window.location.href = "/";
+    }, 3000)
+   
   }
 
   return (
