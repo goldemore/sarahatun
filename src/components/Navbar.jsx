@@ -74,7 +74,8 @@ const Navbar = () => {
   const logExit = () => {
     localStorage.removeItem("ACCESS_TOKEN");
     localStorage.removeItem("userID");
-    window.location.href = "/";
+    window.location.reload()
+    // window.location.href = "/";
     // navigate("/");
 
   };
