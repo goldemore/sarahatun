@@ -43,10 +43,10 @@ const Navbar = () => {
   };
 
   const goToLogin = () => {
-    window.location.href = "/login";
+    window.location.href = "#/login";
   };
   const goToRegister = () => {
-    window.location.href = "/register";
+    window.location.href = "#/register";
   };
 
   const userID = localStorage.getItem("userID");
