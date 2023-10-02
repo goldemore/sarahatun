@@ -57,7 +57,7 @@ const ProductCartBox = () => {
       >
         {getProductsListValue.map((data, i) => (
           <SwiperSlide key={i}>
-            <Link to={`/product/${data.id}`} target="_blank">
+            <Link to={`#/product/${data.id}`} target="_blank">
               <div className="similar_product_box">
                 <img src={data.image} alt="img" />
                 <div className="grid_box_content">

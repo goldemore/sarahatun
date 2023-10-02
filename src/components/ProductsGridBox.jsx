@@ -79,7 +79,7 @@ const ProductsGridBox = ({ dataProducts }) => {
       !e.target.classList.contains("heart_for_favorite") &&
       !e.target.classList.contains("fa-heart")
     ) {
-      window.open(`/product/${dataProducts.id}`, "_blank");
+      window.open(`#/product/${dataProducts.id}`, "_blank");
     }
   };
 
