@@ -9,7 +9,7 @@ const BasketBoxSecond = ({ data }) => {
   return (
     <div className="left_side">
       <div className="b_img">
-        <img src={data.image} alt="" />
+        <img src={data.image} alt="data.title" />
       </div>
       <div className="left_side_content">
         <div className="item_info">
@@ -18,6 +18,10 @@ const BasketBoxSecond = ({ data }) => {
             <p>
               Rəng: <span>{data.choise_color}</span>
             </p>
+            <div
+              style={{ background: `${data.color_code}` }}
+              className="circle_of_choose"
+            ></div>
             <p>
               Ölçü: <span>{data.choise_size}</span>
             </p>

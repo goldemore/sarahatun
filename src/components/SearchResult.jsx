@@ -7,10 +7,13 @@ const SearchResult = ({ resultsTitle }) => {
     <div
       style={{
         background: "white",
-        boxShadow: "0 0 5px black",
-        width: "150px",
+        width: "140px",
         maxHeight: "200px",
         overflowY: "scroll",
+        position: "absolute",
+        zIndex: 9,
+        border: "1px solid #878787",
+        padding: "5px"
       }}
     >
       {resultsTitle.map((data, i) => {

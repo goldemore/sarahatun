@@ -1,16 +1,16 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import ProductCart from "../components/ProductCart";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { Helmet } from "react-helmet";
 
 const Product = () => {
   const { id } = useParams();
-  const location = useLocation();
-  useEffect(() => {
-    document.title = `Sara Hatun - Product ${id}`;
-  }, [id, location]);
+  // const location = useLocation();
+  document.title = `Sara Hatun - Product ${id}`;
+  // useEffect(() => {
+  // }, [id, location]);
 
   return (
     <div>

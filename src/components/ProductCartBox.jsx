@@ -24,12 +24,35 @@ const ProductCartBox = () => {
     <div className="similar_products_container">
       <h2 className="similar_head">Daha Çox Məhsullar</h2>
       <Swiper
-        slidesPerView={4}
-        spaceBetween={40}
-        slidesPerGroup={4}
+        slidesPerView={1}
+        spaceBetween={20}
+        slidesPerGroup={1}
+        loop={true}
         speed={1000}
         navigation={true}
         modules={[Navigation]}
+        breakpoints={{
+          1140: {
+            slidesPerView: 6,
+            slidesPerGroup: 2,
+          },
+          980: {
+            slidesPerView: 5,
+            slidesPerGroup: 2,
+          },
+          800: {
+            slidesPerView: 4,
+            slidesPerGroup: 4,
+          },
+          567: {
+            slidesPerView: 3,
+            slidesPerGroup: 3,
+          },
+          380: {
+            slidesPerView: 2,
+            slidesPerGroup: 2,
+          },
+        }}
         className="mySwiper"
       >
         {getProductsListValue.map((data, i) => (

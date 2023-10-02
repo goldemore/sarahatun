@@ -5,6 +5,8 @@ import ProductsGridBox from "./ProductsGridBox";
 import CategoryModal from "./modals/CategoryModal";
 import SearchResult from "./SearchResult";
 
+import {BiFilterAlt} from 'react-icons/bi'
+
 const Products = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -23,7 +25,8 @@ const Products = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const modalOpenClose = () => {
+  const modalOpenClose = (e) => {
+    e.stopPropagation()
     setIsOpen(!isOpen);
   };
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -62,70 +65,65 @@ const Products = () => {
       <h2 className="main_header" id="mehsullarimiz">
         Məhsullarımız
       </h2>
-    <div style={{display:'flex', gap:"25px", margin:'0 auto', justifyContent:'center'}}>
-      {/* Category HTML */}
-      <div className="category_choise_modal">
-        <p onClick={modalOpenClose} style={{ userSelect: "none" }}>
-          Category
-        </p>
-        <i
-          className="fa-solid fa-angle-down"
-          onClick={modalOpenClose}
-          style={{
-            transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-            transition: "transform 0.3s ease-in-out",
-          }}
-        ></i>
-        {isOpen && (
-          <CategoryModal
-            dataCategory={categoryListValue}
-            selectedCategories={selectedCategories}
-            setSelectedCategories={setSelectedCategories}
-          />
-        )}
-      </div>
 
-      {/* Search inp HTML */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <div className="search_inp_products">
-          <input
-            type="search"
-            placeholder="Axtarıram..."
-            value={inp}
-            onChange={(e) => searchInp(e.target.value)}
-          />
-          <i className="fa-solid fa-magnifying-glass"></i>
+      <div className="main_container">
+        <div className="category_checkbox">
+            <CategoryModal
+              dataCategory={categoryListValue}
+              selectedCategories={selectedCategories}
+              setSelectedCategories={setSelectedCategories}
+            />
         </div>
-        <SearchResult resultsTitle={resultsTitle} />
-      </div>
-    </div>
 
-      {/* Products List view */}
-      <div className="grid_container">
-        {!isOpen ? (
-          getProductsListValue.length !== 0 ? (
-            filteredProducts.map((data, i) => (
-              <ProductsGridBox key={i} dataProducts={data} />
-            ))
-          ) : (
-            <h3 className="when_notmy_favourites">Yüklənir...</h3>
-          )
-        ) : filteredProducts.length !== 0 ? (
-          filteredProducts.map((data, i) => (
-            <ProductsGridBox key={i} dataProducts={data} />
-          ))
-        ) : (
-          <h3 className="when_notmy_favourites">
-            Təəsüfki bu kategoriyada mal yoxdur :(
-          </h3>
-        )}
+      <div>
+        <div className="search_and_catecory">
+          <div className="seach_and_cat_cont">
+            <div className="search_inp_products">
+              <input
+                type="search"
+                placeholder="Axtarıram..."
+                value={inp}
+                onChange={(e) => searchInp(e.target.value)}
+              />
+              <i className="fa-solid fa-magnifying-glass"></i>
+            </div>
+            {inp && <SearchResult resultsTitle={resultsTitle} />}
+          </div>
+          <div onClick={modalOpenClose} className="category_choise_modal">
+            <p style={{ userSelect: "none" }}>
+              Kateqoriya
+            </p>
+            <BiFilterAlt/>
+            {isOpen && (
+              <CategoryModal
+                dataCategory={categoryListValue}
+                selectedCategories={selectedCategories}
+                setSelectedCategories={setSelectedCategories}
+              />
+            )}
+          </div>
+        </div>
+
+          <div className="grid_container">
+            {!isOpen ? (
+              getProductsListValue.length !== 0 ? (
+                filteredProducts.map((data, i) => (
+                  <ProductsGridBox key={i} dataProducts={data} />
+                ))
+              ) : (
+                <h3 className="when_notmy_favourites">Yüklənir...</h3>
+              )
+            ) : filteredProducts.length !== 0 ? (
+              filteredProducts.map((data, i) => (
+                <ProductsGridBox key={i} dataProducts={data} />
+              ))
+            ) : (
+              <h3 className="when_notmy_favourites">
+                Təəsüfki bu kategoriyada mal yoxdur :(
+              </h3>
+            )}
+          </div>
+        </div>
       </div>
     </main>
   );

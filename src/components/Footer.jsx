@@ -6,7 +6,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaFacebookF } from "react-icons/fa";
 
-const Footer = () => {
+const Footer = () => { 
   return (
     <footer>
       <div className="aboutUs_information">

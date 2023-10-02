@@ -117,7 +117,7 @@ const Contact = () => {
         <form className="contact_form" onSubmit={messageSub}>
           <h2>Sualınız var? Bizə yazın</h2>
           <div className="contact_flex">
-            <label htmlFor="name">
+            <label htmlFor="name"> 
               <input
                 id="name"
                 value={name}

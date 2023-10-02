@@ -1,8 +1,9 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import {EffectFade, Navigation, Pagination, Autoplay } from "swiper/modules";
 
 import "swiper/css";
+import 'swiper/css/effect-fade';
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
 
@@ -14,7 +15,7 @@ import img4 from "../logoimg/head_image4.jpg";
 const Hero = () => {
   return (
     <div className="header_background_image">
-      <Swiper
+      {/* <Swiper
         style={{ height: "90vh" }}
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={0}
@@ -22,6 +23,19 @@ const Hero = () => {
         autoplay={{ delay: 3000 }}
         pagination={{ clickable: true }}
         speed={1500}
+      ></Swiper> */}
+      <Swiper
+        style={{ height: "90vh" }}
+        spaceBetween={30}
+        effect={'fade'}
+        autoplay={{ delay: 3000 }}
+        speed={1500}
+        navigation={true}
+        pagination={{
+          clickable: true,
+        }}
+        modules={[EffectFade, Navigation, Pagination, Autoplay]}
+        className="mySwiper"
       >
         <SwiperSlide>
           <div

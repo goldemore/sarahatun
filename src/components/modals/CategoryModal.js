@@ -9,6 +9,7 @@ const CategoryModal = ({
   return (
     <>
       <div className="_choise_modal_list" style={{ userSelect: "none" }}>
+        <p>Kateqoriya</p>
         {dataCategory.map((data, i) => {
           return (
             <CategoryModalContent

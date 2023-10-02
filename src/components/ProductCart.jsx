@@ -13,6 +13,9 @@ import Swal from "sweetalert2";
 import AlotOfImgBox from "./AlotOfImgBox";
 import DOMPurify from "dompurify";
 
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+
 const ProductCart = () => {
   const { id } = useParams();
 
@@ -42,17 +45,17 @@ const ProductCart = () => {
   const addRemoveFavorite = async (id) => {
     console.log(id);
     if (Object.keys(loggedInUser).length === 0) {
-      window.location.href = "#/login";
+      window.location.href = "/login";
     } else {
       if (!checkItem) {
         const data = {
           user: Number(localStorage.getItem("userID")),
-          product: id,
+          product: id
         };
         await axios({
           method: "POST",
           url: "https://derzi.pythonanywhere.com/api/tailor/favourite-create/",
-          data,
+          data
         })
           .then((resp) => {
             console.log(resp);
@@ -64,7 +67,7 @@ const ProductCart = () => {
                 icon: "success",
                 title: "Uğurla favorilərimə əlavə olundu",
                 showConfirmButton: false,
-                timer: 800,
+                timer: 800
               });
             }
           })
@@ -74,7 +77,7 @@ const ProductCart = () => {
       } else {
         await axios({
           method: "DELETE",
-          url: `https://derzi.pythonanywhere.com/api/tailor/favourite-retrieve-update-delete/${checkItem.id}/`,
+          url: `https://derzi.pythonanywhere.com/api/tailor/favourite-retrieve-update-delete/${checkItem.id}/`
         })
           .then((resp) => {
             console.log(resp);
@@ -100,27 +103,49 @@ const ProductCart = () => {
     }, 300);
   };
 
+  // slide of mini pictures
+  let images = document.querySelector(".class_of_images");
+
+  const prevBtn = () => {
+    images.style.scrollBehavior = "smooth";
+    images.scrollLeft -= 65; 
+  }
+
+  const nextBtn = () => {
+    images.style.scrollBehavior = "smooth";
+    images.scrollLeft += 65;
+  }
+
+
   return (
     <div className="p_container">
       <div className="p_box">
-        <div className="alotof_img_box">
-          {isDataLoaded
-            ? dataPr.product_images.map((data, i) => {
-                return (
-                  <AlotOfImgBox
-                    key={i}
-                    dataImgs={data}
-                    onClick={() => clickImg(data.image)}
-                  />
-                );
-              })
-            : ""}
-        </div>
 
         {isDataLoaded ? (
           <>
-            <div className="p_img">
-              <img src={isSelectedImg} alt="" />
+            <div className="images">
+              <div className="p_img">
+                <img src={isSelectedImg} alt="/" />
+              </div>
+              <div className="prod_img_container">
+                <MdKeyboardArrowLeft size={30} onClick={prevBtn} className="prod_img_btn"/>
+                <div className="class_of_images">
+                  <div className="alotof_img_box" >
+                    {isDataLoaded
+                      ? dataPr.product_images.map((data, i) => {
+                        return (
+                          <AlotOfImgBox
+                          key={i}
+                          dataImgs={data}
+                          onClick={() => clickImg(data.image)}
+                          />
+                          );
+                        })
+                        : ""}
+                  </div>
+                </div>
+                <MdKeyboardArrowRight size={30} onClick={nextBtn} className="prod_img_btn"/>
+              </div>
             </div>
             <div className="p_content">
               <div className="product_title_category">
@@ -136,10 +161,9 @@ const ProductCart = () => {
                 {dataPr.sale_price ? dataPr.sale_price : dataPr.price} AZN
               </p>
 
-              {/* <div dangerouslySetInnerHTML={{ __html: dataPr.characteristics }}></div> */}
               <div
                 dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(dataPr.characteristics),
+                  __html: DOMPurify.sanitize(dataPr.characteristics)
                 }}
               ></div>
               <div>
@@ -198,7 +222,7 @@ const ProductCart = () => {
                           icon: "error",
                           title: "Rəng və ölçü seçin",
                           showConfirmButton: false,
-                          timer: 800,
+                          timer: 800
                         });
                       } else {
                         dispatch(addToCart(dataPr));
@@ -208,12 +232,12 @@ const ProductCart = () => {
                     Səbətə əlavə et
                   </button>
                 </div>
-                <i
-                  className={
-                    checkItem ? "fa-solid fa-heart" : "fa-regular fa-heart"
-                  }
+                <div
+                  className="heart"
                   onClick={() => addRemoveFavorite(dataPr.id)}
-                ></i>
+                >
+                  {checkItem ? <AiFillHeart /> : <AiOutlineHeart />}
+                </div>
               </div>
             </div>
           </>

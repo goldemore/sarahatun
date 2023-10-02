@@ -40,7 +40,7 @@ const LoginBox = () => {
             password: psw,
           };
           axios
-            .post("https://derzi.pythonanywhere.com/api/token/", data)
+            .post("https://derzi.pythonanywhere.com/api/token/", data) 
             .then((resp) => {
               console.log(resp);
               if (resp.status === 200) {

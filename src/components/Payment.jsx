@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Payment = ({ setIsOpen }) => {
-  const navigate=useNavigate()
+  // const navigate = useNavigate();
   const basket = useSelector((state) => state.Data.basket);
 
   const myOrderIDvalue = useSelector((state) => state.Data.myOrderIDvalue);
@@ -45,24 +45,22 @@ const Payment = ({ setIsOpen }) => {
     }
 
     if (success) {
-      
       setIsSuccessful(true); // Если все запросы выполнены успешно
       setIsloader(false);
     }
   };
 
-  if (isSuccessful) { 
+  if (isSuccessful) {
     Swal.fire({
       icon: "success",
       title: "Ödəmə uğurla həyata keçdi. Alış üçün təşəkkürlər :)",
       text: "",
       timer: 5000,
     });
-    setTimeout(function(){
-      localStorage.removeItem('basketList')
+    setTimeout(function () {
+      localStorage.removeItem("basketList");
       window.location.href = "/";
-    }, 3000)
-   
+    }, 3000);
   }
 
   return (

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import InputMask from "react-input-mask";
 
 const RegisterBox = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -109,44 +110,54 @@ const RegisterBox = () => {
 
         <form onSubmit={regSubmit}>
           <div>
-            <input
-              value={firstName}
-              onChange={nameChange}
-              type="text"
-              placeholder="Ad"
-              required
-            />
+            <label htmlFor="name">
+              <input
+                id="name"
+                value={firstName}
+                onChange={nameChange}
+                type="text"
+                placeholder="Ad"
+                required
+              />
+            </label>
           </div>
           <div>
-            <input
-              value={lastName}
-              onChange={lastNaChange}
-              type="text"
-              placeholder="Soyad"
-              required
-            />
+            <label htmlFor="last_name">
+              <input
+                id="last_name"
+                value={lastName}
+                onChange={lastNaChange}
+                type="text"
+                placeholder="Soyad"
+                required
+              />
+            </label>
           </div>
           <div>
-            <input
-              value={email}
-              onChange={emailChange}
-              type="email"
-              placeholder="E-poçt"
-              required
-            />
+            <label htmlFor="email">
+              <input
+                id="email"
+                value={email}
+                onChange={emailChange}
+                type="email"
+                placeholder="E-poçt"
+                required
+              />
+            </label>
 
             <span className="error">{emailErr}</span>
           </div>
           <div>
-            <input
-              value={tel}
-              onChange={telChange}
-              type="tel"
-              placeholder="Əlaqə nömrəsi 0555555555"
-              required
-              pattern="\d{3}\d{7}"
-              title="Əlaqə nömrəsi doğru formatda olmalıdır. 0515555555"
-            />
+            <label htmlFor="phone_number">
+              <InputMask
+                id="phone_number"
+                value={tel}
+                onChange={telChange}
+                mask="+\9\94 (99) 999-99-99"
+                placeholder="+994 (00) 000-00-00"
+                required
+              ></InputMask>
+            </label>
           </div>
           <div className="eye_psw">
             <input

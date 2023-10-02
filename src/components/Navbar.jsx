@@ -4,8 +4,10 @@ import { getLoggedInuser } from "../action/MainAction";
 import { useDispatch, useSelector } from "react-redux";
 
 import { FiShoppingBag } from "react-icons/fi";
-import { AiFillInstagram, AiOutlineMenu } from "react-icons/ai";
-import { FaFacebookF } from "react-icons/fa";
+import { AiOutlineMenu } from "react-icons/ai";
+import logo from "../logoimg/logo.jpeg"
+
+
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -41,10 +43,10 @@ const Navbar = () => {
   };
 
   const goToLogin = () => {
-    window.location.href = "#/login";
+    window.location.href = "/login";
   };
   const goToRegister = () => {
-    window.location.href = "#/register";
+    window.location.href = "/register";
   };
 
   const userID = localStorage.getItem("userID");
@@ -74,8 +76,7 @@ const Navbar = () => {
   const logExit = () => {
     localStorage.removeItem("ACCESS_TOKEN");
     localStorage.removeItem("userID");
-    window.location.reload()
-    // window.location.href = "/";
+    window.location.href = "/";
     // navigate("/");
 
   };
@@ -91,8 +92,9 @@ const Navbar = () => {
       <div className="header_container">
         <div className="logo">
           <Link to="/">
-            {/* <img src={logo} alt="Sara Hatun Logo" /> */}
-            <span className="logo_style">Sara Hatun</span>
+            <img src={logo} alt="Sara Hatun Logo" />
+            {/* <img src={logo} alt="" /> */}
+            {/* <span className="logo_style">Sara Hatun</span> */}
           </Link>
         </div>
         <nav>
@@ -112,22 +114,7 @@ const Navbar = () => {
             <li>
               <Link to="/contact">Bİzİmlə əlaqə</Link>
             </li>
-            <div className="social_media_i">
-              <Link
-                to="https://www.instagram.com"
-                target="_blank"
-                style={{ color: "#000" }}
-              >
-                <AiFillInstagram className="instagram" size={25} />
-              </Link>
-              <Link
-                to="https://www.facebook.com"
-                target="_blank"
-                style={{ color: "#000" }}
-              >
-                <FaFacebookF className="facebook" size={20} />
-              </Link>
-            </div>
+            
           </ul>
         </nav>
 
@@ -141,11 +128,11 @@ const Navbar = () => {
 
         <div className="header_icons_container">
           <div className="user_container_modals">
-            {isLoading ? <div className="loader" style={{width:"21px", height:'19px'}}></div>: <i
-            
+            {isLoading ? <div className="loader_user_icon"></div>: <i
               className={
                 Object.keys(loggedInUser).length !== 0
-                  ? "fa-solid fa-circle-user"
+                
+                  ? "fa-regular fa-circle-user"
                   : "fa-regular fa-user"
               }
             ></i>}
@@ -156,6 +143,8 @@ const Navbar = () => {
                 <div style={{fontSize:"1.3rem"}} className="loggedInUser_content_name">
                   <span>{loggedInUser.email}</span>
                 </div>
+                <div className="user_modal_hover_i">
+
                 <div onClick={goToMyFavourite} className="loggedInUser_content">
                   <i className="fa-solid fa-heart"></i>
                   <span>Favorilərim</span>
@@ -171,9 +160,10 @@ const Navbar = () => {
                   <i className="fa-solid fa-right-from-bracket"></i>
                   <span>Çıxış</span>
                 </div>
+                </div>
               </div>
             ) : (
-              <div style={{width:'140px'}} className="user_modal_hover">
+              <div className="user_modal_hover">
                 <button onClick={goToLogin}>Daxil ol</button>
                 <button onClick={goToRegister}>Qeydiyyatdan keç</button>
               </div>
@@ -181,7 +171,7 @@ const Navbar = () => {
           </div>
 
           <div className="bag_icon" onClick={goToBasket}>
-            <FiShoppingBag size={22} />
+            <FiShoppingBag size={22} style={{marginTop:"3px"}} />
             <span className="basket_count">{total}</span>
           </div>
           <div className="social_media_icons">
@@ -190,14 +180,16 @@ const Navbar = () => {
               target="_blank"
               style={{ color: "#000" }}
             >
-              <AiFillInstagram className="instagram" size={25} />
+              {/* <AiFillInstagram className="instagram" size={25} /> */}
+              <i className="fa-brands fa-instagram"></i>
             </Link>
             <Link
               to="https://www.facebook.com"
               target="_blank"
               style={{ color: "#000" }}
             >
-              <FaFacebookF className="facebook" size={20} />
+              {/* <FaFacebookF className="facebook" size={20} /> */}
+              <i className="fa-brands fa-square-facebook"></i>
             </Link>
           </div>
           <div>
